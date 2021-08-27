@@ -35,19 +35,27 @@ This is an admin based  mini web project developed for the management of the rec
 <br>
 
 
-##  Features <a name = "features"></a>
+## ✨ Features <a name = "features"></a>
 
-- Creation of invoice and printing as pdf.
+### For Registered Users :
 
-- CREATE, RETRIVE, UPDATE,DELETE of Food items.
+- Admin Mode
+   - Admin can register new staff.
+   - Admin can CREATE, RETRIVE, UPDATE and DELETE food items.
+   - Admin can CREATE, RETRIVE, UPDATE and DELETE invoices.
 
-- Admin and staffs functionality.
+<br>
 
-- Staffs can only CREATE, RETRIVE, UPDATE invoices.
+- Staff Mode
+   - Admin can CREATE, RETRIVE, UPDATE and DELETE food items.
+   - Admin can CREATE, RETRIVE, UPDATE invoices.
+     
+<br>
 
-- Only Admin can DELETE invoices.
+### For Unregistered users :
+- Normal mode:
+   - Can only view food-items list and food details.
 
-- Only Admin can register new staff.
 
 <br>
 
