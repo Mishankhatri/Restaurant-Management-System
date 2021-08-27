@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.db.models import Sum
 from django.views.generic.base import TemplateView
 from .models import Food ,Invoice
 from django.contrib import messages
@@ -28,23 +27,6 @@ def home(request):
     return render(request,"rms_app/home.html")
 
 
-class GeneratePdf(View,SingleObjectMixin):
-    model = Invoice
-    context_object_name = 'invoice_obj'
-
-    def get(self, request, pk, *args, **kwargs):
-        self.object = self.get_object(queryset=Invoice.objects.all()) 
-        total = 0
-        for itr in self.object.invoiceitem.all():
-            total += itr.accumulated
-
-        params = {
-            'invoice_obj': self.object,
-            'request': request,
-            'total': total
-        }
-        pdf = render_to_pdf('rms_app/invoice_print.html', params)
-        return HttpResponse(pdf, content_type='application/pdf')
 
 
 
@@ -165,6 +147,23 @@ class SalesView(LoginRequiredMixin, ListView):
 
 
 
+class GeneratePdf(View,SingleObjectMixin):
+    model = Invoice
+    context_object_name = 'invoice_obj'
+
+    def get(self, request, pk, *args, **kwargs):
+        self.object = self.get_object(queryset=Invoice.objects.all()) 
+        total = 0
+        for itr in self.object.invoiceitem.all():
+            total += itr.accumulated
+
+        params = {
+            'invoice_obj': self.object,
+            'request': request,
+            'total': total
+        }
+        pdf = render_to_pdf('rms_app/invoice_print.html', params)
+        return HttpResponse(pdf, content_type='application/pdf')
 
 
 
