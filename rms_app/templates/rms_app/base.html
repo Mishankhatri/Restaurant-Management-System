@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel= "stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'rms_app/main.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {% if title %}
+        <title>Restaurant Management System - {{ title }}</title>
+    {% else %}
+        <title> Restaurant Management System </title>
+    {% endif %}
+</head>
+<body>
+    <nav>
+        <div id="navbar">
+            <a href="{% url 'rms-home' %}" class='navbar-header ' style='color:var(--green-color)'>Restaurant Management System</a>
+            <div class="navbar-links">
+                <a href="{% url 'rms-foodlist' %}" class="navbar-link">Food List</a>
+                <a href="{% url 'rms-food' %}" class="navbar-link">Food</a>
+                {% if user.is_authenticated %}
+                <a class="navbar-link" href="{% url 'createinvoice' %}" >Create Invoice</a>
+                <a class="navbar-link" href="{% url 'dashboard' %}" >Dashboard</a>
+                {% else %}
+                <a class="navbar-link" href="{% url 'login'%}">Login</a>
+                {% endif%}
+            </div>
+        </div>
+    </nav>
+      {%if messages%}
+      <div class="sucess_message_bar" style="padding-top: 80px;padding-left: 60px;"></div>
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}">
+            {{ message }} 
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% block content %}
+    <!-- for childs -->
+    {% endblock content %}
+</body>
+
+
+
+</html>
+

@@ -1,0 +1,38 @@
+{% extends "rms_app/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="content-section-dashboard">
+  <div class="media">
+    <img class=" rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <div class="media-body">
+      <h2 class="account-heading" style="font-family: var(--head-font); color: var(--green-color);">{{ user.username }}</h2>
+      <p class="text-secondary">{{ user.email }}</p>
+    </div>
+  </div>
+  <div>
+    <br>
+    <div>
+      <a  href="{% url 'update-profile' %}">Update Profile</a>
+    </div>
+    <br>
+    <div>
+      <a  href="{% url 'rms-addtolist' %}">Add Item to Foodlist</a>
+    </div>
+    <br>
+    {% if request.user.is_superuser %}
+    <div>
+      <a  href="{% url 'register' %}">Register New Staff</a>
+    </div>
+    <br>
+    {% endif %}
+    <div>
+      <a  href="{% url 'sales' %}">Food Sales</a>
+    </div>
+    <br>
+    <div style="padding-top: 80px;">
+      <a  href="{% url 'logout' %}">Log Out</a>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "rms_app/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+  <div class="content-section">
+      <form method="POST">
+          {% csrf_token %}
+          <fieldset class ="form-group">
+              <legend class="border-bottom mb-4">Delete Item</legend>
+              <h2>Confirm "{{object.food_item }}" Item Delete !!!</h2>
+          </fieldset>
+          <br>
+          <div class="form-group">
+              <button style="color: #d0333c;" type="submit">Yes, Delete</button>&emsp;
+              <a  href="{% url 'rms-foodlist' %} ">Cancel</a>
+          </div>
+      </form>
+  </div>
+ {% endblock content %}

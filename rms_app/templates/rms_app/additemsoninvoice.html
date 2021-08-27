@@ -1,0 +1,105 @@
+{% extends "rms_app/base.html" %}
+{% block content %} 
+{% load static %}
+{% load crispy_forms_tags %}
+<div class="addtoinvoice">
+    
+    {% if invoice_obj %}
+    <div>
+        <img src="E:\RMS-Restaurant Management System\media\rms.png" alt="">
+        <h2 >Customer Name : <span style= "color: var(--green-color);" >{{ invoice_obj.customer_name }}</span></h2>
+        <hr>
+        {{ form.management_form }}
+        {{ form.non_form_errors }}
+        <form method="POST" enctype="multipart/form-data" style= "font-family: var(--head-font);">
+            {% csrf_token %}
+            <fieldset style="padding-top:20px;">
+                <legend>Add Items to Invoice</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <br>
+            <div >
+                <button type="submit">Save</button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
+        </form>
+        <div class="table">
+            <table class="itemsonly" style="margin-top: 10px;">
+                <tr style="font-family: Montserrat">
+                <h2>Invoice Items</h2>
+                  <th>S.N</th>
+                  <th>Items</th>
+                  <th>Per Item Price (Rs.)</th>
+                  <th>Quantity </th>
+                  <th>Accmulated Price (Rs.) </th>
+                </tr>
+                {% for itrr in invoice_obj.invoiceitem.all %}
+                <tr style="font-family: var(--text-font);">
+                    <td class = "SN">{{itrr.id}}</td>
+                    <td>{{itrr.currentitem}}</td>
+                    <td>{{itrr.price}}</td>
+                    <td>{{itrr.quantity}} &emsp;
+                    </td>
+                    <td id ="accmulated">{{itrr.multiply}}&emsp;
+                    </td>
+                </tr>
+                {% endfor %}
+                    <tr style="font-family: var(--head-font); font-weight:600;">
+                        <td colspan="3"></td>
+                        <td >Total Amount (Rs.):</td>
+                        <td id = "total">0</td>
+                    </tr>
+            </table>  
+        </div>
+    </div>
+    <br>
+    <p>Date and Time: {{ invoice_obj.date_created }}</p>
+    <p>Issued by: {{ invoice_obj.created_by }}</p>
+    <hr>
+    <div id="horizontalbuttons">
+        <div>
+            <a href="{% url 'dashboard' %}"> Return to Dashboard</a>
+        </div>
+        <div>
+            <a  href="{% url 'invoice_print' invoice_obj.invoice_number %}"> Print</a>
+        </div>
+    </div>
+    {% else %}
+    <h2>Opps! No invoices in Database.😫</h2>
+    <hr>
+    <div>
+    <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
+    </div>
+    {% endif %}
+</div>
+
+
+<script>
+    $(document).ready(function(){
+        var per_price;
+        var quantity;
+        var fifth;
+        var first = 1;
+        var totalInvoice = 0;
+
+        $('td:nth-child(5)').each(function(){
+            fifth =parseInt($(this).html());
+            totalInvoice += fifth;
+            $('#total').html(totalInvoice);
+        });
+        
+        $('.SN').each(function(){
+            $(this).html(first);
+            first++;
+        });
+
+    })
+</script>
+
+
+{% endblock content %}
+
+

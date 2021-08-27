@@ -1,0 +1,30 @@
+{% extends "rms_app/base.html" %}
+{% load crispy_forms_tags %}
+{% block content%}
+<div class="content-section">
+  <div class="media">
+    <img class=" rounded-circle account-img" src="{{ user.profile.image.url }}">
+    <h4 style='color: var(--green-color);'>Edit Profile</h4>
+  </div>
+  <hr>
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <fieldset>
+      {{ u_form|crispy }}
+      <br>
+      {{ p_form|crispy }}
+      <br>
+      <br>
+      <div class="form-group">
+        <button type="submit">Update Profile</button>
+      </div>
+      <br>
+    </fieldset>
+  </form>
+  <hr>
+  <div>
+    <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
+  </div>
+  <br>
+</div>
+{% endblock content %}
