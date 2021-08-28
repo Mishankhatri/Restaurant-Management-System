@@ -90,7 +90,7 @@ This is an admin based  mini web project developed for the management of the rec
 - For creating a user execute:
 
     ```
-    $python3 manage.py createsuperuser
+    $python manage.py createsuperuser
     # Follow the instructions
     ```
 
