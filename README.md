@@ -41,14 +41,14 @@ This is an admin based  mini web project developed for the management of the rec
 
 - Admin Mode
    - Admin can register new staff.
-   - Admin can CREATE, RETRIVE, UPDATE and DELETE food items.
-   - Admin can CREATE, RETRIVE, UPDATE, PRINT and DELETE    invoices.
+   - Admin can CREATE, RETRIEVE, UPDATE and DELETE food items.
+   - Admin can CREATE, RETRIEVE, UPDATE, PRINT and DELETE invoices.
 
 <br>
 
 - Staff Mode
-   - Staff can CREATE, RETRIVE, UPDATE and DELETE food items.
-   - Staff can CREATE, RETRIVE, UPDATE and PRINT invoices.
+   - Staff can CREATE, RETRIEVE, UPDATE and DELETE food items.
+   - Staff can CREATE, RETRIEVE, UPDATE and PRINT invoices.
      
 <br>
 
