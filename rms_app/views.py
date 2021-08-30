@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Q
 from django.views.generic.base import TemplateView
 from .models import Food ,Invoice
 from django.contrib import messages
@@ -144,6 +145,19 @@ class SalesView(LoginRequiredMixin, ListView):
     model = Invoice
     context_object_name = 'invoice_obj'
     template_name = "rms_app/sales.html"
+
+    def get_queryset(self):
+        query = self.request.GET.get('q',None)
+        query2 = self.request.GET.get('d',None)
+        if query is not None :
+            invoice_obj = self.model.objects.filter( Q(customer_name__icontains = query) | Q(created_by__username__icontains = query)
+            )
+        elif query2 is not None :
+            invoice_obj = self.model.objects.filter( Q(date_created__year = query2) | Q(date_created__month = query2) | Q(date_created__day = query2)
+            )
+        else:
+            invoice_obj = self.model.objects.all()
+        return invoice_obj
 
 
 

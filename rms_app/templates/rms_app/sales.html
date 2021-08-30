@@ -3,60 +3,81 @@
 {% load static %}
 {% load crispy_forms_tags %}
 <div class="content-section-sales">
-    {% if invoice_obj %}
-    <div class="table">
-        <h2>List of Invoices</h2>
-        <table>
-            <tr style="font-family: Montserrat">
-              <th>S.N</th>
-              <th>Customer Name</th>
-              <th>Created By </th>
-              <th> Date Created  </th>
-              <th> Details  </th>
-              {% if request.user.is_superuser %}
-              <th>
-                Edit
-              </th>
-              {% endif %}
-              {% if request.user.is_superuser %}
-              <th>
-                Delete
-              </th>
-              {% endif %}
-
-            </tr>
-            {% for itr in invoice_obj  %}
-            <tr>
-                <td class="SN">{{ itr.invoice_number}}</td>
-                <td>{{ itr.customer_name}}</td>
-                <td>{{ itr.created_by}}</td>
-                <td>{{ itr.date_created}}&emsp;
-                </td>
-                <td><a  href="{% url 'invoice_details' itr.invoice_number %}">Details</a>&emsp;
-                </td>
-                {% if request.user.is_superuser %}
-                <td >
-                    <a href="{% url 'add_items_on_invoice' itr.invoice_number %} "> Edit</a>&ensp;
-                </td>
-                {% endif %}
-                {% if request.user.is_superuser %}
-                <td>
-                    <a style="color: #d0333c;" href="{% url 'invoice_confirm_delete' itr.invoice_number %} "> Delete</a>
-                </td>
-                {% endif %}
-            </tr>
-            {% endfor %}
-        </table>
+    <h2>List of Invoices</h2>
+    <hr>
+    <div id="horizontalbuttons">
+        <form action="/dashboard/sales" method="get">
+            <div class="col-xs-2">
+                <label for="by_name">Search By Name</label>
+                <input class="form-control" type= "text" id = " by_name" name="q" placeholder="Search" required>
+                <span class="help-block"> Name can be either of Customer or invoice creator</span>
+                <br>
+                <button type="submit" >Search</button>
+            </div>
+        </form>
+        <form action="/dashboard/sales" method="get">
+            <div class="col-xs-2">
+                <label for="by_date">Search By Date </label>
+                <input class="form-control" type="number" name="d" placeholder="Search By date"  id = "by_date" required>
+                <span class="help-block">( eg: For year: 2021, For month: 1-12, For day:1-32 )</span>
+                <br>
+                <button type="submit" >Search</button>
+            </div>
+        </form>
     </div>
     <div>
-    <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
+        <a  href="{% url 'sales' %}"> Reset Search</a>
+    </div>
+    {% if invoice_obj %}
+    <table>
+        <tr style="font-family: Montserrat">
+            <th>S.N</th>
+            <th>Customer Name</th>
+            <th>Created By </th>
+            <th> Date Created  </th>
+            <th> Details  </th>
+            {% if request.user.is_superuser %}
+            <th>
+                Edit
+            </th>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <th>
+                Delete
+            </th>
+            {% endif %}
+        </tr>
+        {% for itr in invoice_obj  %}
+        <tr>
+            <td class="SN">{{ itr.invoice_number}}</td>
+            <td>{{ itr.customer_name}}</td>
+            <td>{{ itr.created_by}}</td>
+            <td>{{ itr.date_created}}&emsp;
+            </td>
+            <td><a  href="{% url 'invoice_details' itr.invoice_number %}">Details</a>&emsp;
+            </td>
+            {% if request.user.is_superuser %}
+            <td >
+                <a href="{% url 'add_items_on_invoice' itr.invoice_number %} "> Edit</a>&ensp;
+            </td>
+            {% endif %}
+            {% if request.user.is_superuser %}
+            <td>
+                <a style="color: #d0333c;" href="{% url 'invoice_confirm_delete' itr.invoice_number %} "> Delete</a>
+            </td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+    <div>
+        <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
     </div>
     {% else %}
-     <h2>Opps! No invoices in Database.😫</h2>
-     <div>
-     <hr>
-     <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
-     </div>
+    <hr>
+    <h2>Opps! No such invoices in Database.😫</h2>
+    <div>
+        <a  href="{% url 'dashboard' %}"> Return to Dashboard</a>
+    </div>
     {% endif %}
 </div>
 
