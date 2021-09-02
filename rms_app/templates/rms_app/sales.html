@@ -18,7 +18,7 @@
         <form action="/dashboard/sales" method="get">
             <div class="col-xs-2">
                 <label for="by_date">Search By Date </label>
-                <input class="form-control" type="number" name="d" placeholder="Search By date"  id = "by_date" required>
+                <input class="form-control" type="number" min = '1' step = '1' name="d" placeholder="Search By date"  id = "by_date" required>
                 <span class="help-block">( eg: For year: 2021, For month: 1-12, For day:1-32 )</span>
                 <br>
                 <button type="submit" >Search</button>
