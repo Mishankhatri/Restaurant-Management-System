@@ -8,24 +8,24 @@
     <div id="horizontalbuttons">
         <form action="/dashboard/sales" method="get">
             <div class="col-xs-2">
-                <label for="by_name">Search By Name</label>
+                <label for="by_name" style="font-weight: 500;">Search By Name</label>
                 <input class="form-control" type= "text" id = " by_name" name="q" placeholder="Search" required>
-                <span class="help-block"> Name can be either of Customer or invoice creator</span>
+                <small class="help-block">( Name can be either of Customer or Invoice creator.)</small>
                 <br>
                 <button type="submit" >Search</button>
             </div>
         </form>
         <form action="/dashboard/sales" method="get">
             <div class="col-xs-2">
-                <label for="by_date">Search By Date </label>
+                <label for="by_date" style="font-weight: 500;">Search By Date </label>
                 <input class="form-control" type="number" min = '1' step = '1' name="d" placeholder="Search By date"  id = "by_date" required>
-                <span class="help-block">( eg: For year: 2021, For month: 1-12, For day:1-32 )</span>
+                <small class="help-block">( eg: For year: 2021, For month: 1-12, For day:1-32 )</small>
                 <br>
                 <button type="submit" >Search</button>
             </div>
         </form>
     </div>
-    <div>
+    <div class = "reset-btn">
         <a  href="{% url 'sales' %}"> Reset Search</a>
     </div>
     {% if invoice_obj %}

@@ -484,3 +484,7 @@ hr {
   border-radius: 2px;
   opacity: 1;
 }
+
+.reset-btn{
+  margin: 30px 0 30px 0;
+}

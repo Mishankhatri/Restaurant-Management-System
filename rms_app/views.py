@@ -161,7 +161,7 @@ class SalesView(LoginRequiredMixin, ListView):
 
 
 
-class GeneratePdf(View,SingleObjectMixin):
+class GeneratePdf(LoginRequiredMixin,View,SingleObjectMixin):
     model = Invoice
     context_object_name = 'invoice_obj'
 
