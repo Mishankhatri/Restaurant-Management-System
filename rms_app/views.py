@@ -4,7 +4,7 @@ from django.views.generic.base import TemplateView
 from .models import Food ,Invoice
 from django.contrib import messages
 from crispy_forms.helper import FormHelper
-from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
 from django.urls import reverse
 from .forms import  InvoiceFormSet
 from django.views.generic.detail import SingleObjectMixin
@@ -92,7 +92,14 @@ class CreateInvoiceView(LoginRequiredMixin, CreateView):
         return reverse('add_items_on_invoice', kwargs={'pk': self.object.pk})
 
 
-class DeleteInvoiceView(LoginRequiredMixin,DeleteView):
+
+class AdminRequiredMixin(LoginRequiredMixin, UserPassesTestMixin):
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class DeleteInvoiceView(AdminRequiredMixin,DeleteView):
     model = Invoice
     success_url = '/dashboard/sales'
 
